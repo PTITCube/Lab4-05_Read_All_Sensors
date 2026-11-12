@@ -11,17 +11,20 @@
  */
 
 #include <Arduino.h>
+
 #include <PTITCube.h>
+
+PTIT_CDH cdh;
 
 // Khai báo đối tượng cảm biến và GPS
 PTIT_Sensor mySensor;
 PTIT_GPS myGPS;
 
 void setup() {
-    Serial.begin(115200);
-    while (!Serial) { delay(10); }
+    cdh.begin(115200);
+    while (!cdh) { delay(10); }
 
-    Serial.println("\n[EXAMPLE] Bắt đầu bài test Toàn bộ Cảm biến & Định vị GPS...");
+    cdh.println("\n[EXAMPLE] Bắt đầu bài test Toàn bộ Cảm biến & Định vị GPS...");
     
     // Khởi tạo các cảm biến I2C (BMP280, MPU6500, QMC5883)
     mySensor.init();
@@ -29,7 +32,7 @@ void setup() {
     // Khởi tạo module GPS qua UART2
     myGPS.init();
 
-    Serial.println("[EXAMPLE] Đã nạp xong cấu hình. Đang bắt đầu vòng lặp đọc dữ liệu...\n");
+    cdh.println("[EXAMPLE] Đã nạp xong cấu hình. Đang bắt đầu vòng lặp đọc dữ liệu...\n");
 }
 
 void loop() {
@@ -41,46 +44,44 @@ void loop() {
     if (millis() - lastPrint >= 2000) {
         lastPrint = millis();
 
-        Serial.println("=================================================");
-        Serial.println("       DỮ LIỆU CẢM BIẾN TOÀN DIỆN & TỌA ĐỘ GPS   ");
-        Serial.println("=================================================");
-
+                cdh.println("       DỮ LIỆU CẢM BIẾN TOÀN DIỆN & TỌA ĐỘ GPS   ");
+        
         // 1. BMP280
-        Serial.println(">>> 1. BMP280 (Nhiệt độ & Áp suất)");
-        Serial.print("    - Nhiệt độ          : "); Serial.print(mySensor.getTemperature(), 2); Serial.println(" °C");
-        Serial.print("    - Áp suất           : "); Serial.print(mySensor.getPressure(), 2); Serial.println(" hPa");
+        cdh.println(">>> 1. BMP280 (Nhiệt độ & Áp suất)");
+        cdh.print("    - Nhiệt độ          : "); cdh.print(mySensor.getTemperature(), 2); cdh.println(" °C");
+        cdh.print("    - Áp suất           : "); cdh.print(mySensor.getPressure(), 2); cdh.println(" hPa");
 
         // 2. MPU6500
-        Serial.println(">>> 2. MPU6500 (Gia tốc & Con quay hồi chuyển)");
-        Serial.print("    - Gia tốc (m/s^2)   : X="); Serial.print(mySensor.getAccX(), 3); 
-        Serial.print("  Y="); Serial.print(mySensor.getAccY(), 3); 
-        Serial.print("  Z="); Serial.println(mySensor.getAccZ(), 3);
+        cdh.println(">>> 2. MPU6500 (Gia tốc & Con quay hồi chuyển)");
+        cdh.print("    - Gia tốc (m/s^2)   : X="); cdh.print(mySensor.getAccX(), 3); 
+        cdh.print("  Y="); cdh.print(mySensor.getAccY(), 3); 
+        cdh.print("  Z="); cdh.println(mySensor.getAccZ(), 3);
         
-        Serial.print("    - Tốc độ góc (rad/s): X="); Serial.print(mySensor.getGyroX(), 3); 
-        Serial.print("  Y="); Serial.print(mySensor.getGyroY(), 3); 
-        Serial.print("  Z="); Serial.println(mySensor.getGyroZ(), 3);
+        cdh.print("    - Tốc độ góc (rad/s): X="); cdh.print(mySensor.getGyroX(), 3); 
+        cdh.print("  Y="); cdh.print(mySensor.getGyroY(), 3); 
+        cdh.print("  Z="); cdh.println(mySensor.getGyroZ(), 3);
 
         // 3. QMC5883L/P
-        Serial.println(">>> 3. QMC5883 (La bàn từ trường 3 trục)");
-        Serial.print("    - Từ trường (Gauss) : X="); Serial.print(mySensor.getMagX(), 3); 
-        Serial.print("  Y="); Serial.print(mySensor.getMagY(), 3); 
-        Serial.print("  Z="); Serial.println(mySensor.getMagZ(), 3);
+        cdh.println(">>> 3. QMC5883 (La bàn từ trường 3 trục)");
+        cdh.print("    - Từ trường (Gauss) : X="); cdh.print(mySensor.getMagX(), 3); 
+        cdh.print("  Y="); cdh.print(mySensor.getMagY(), 3); 
+        cdh.print("  Z="); cdh.println(mySensor.getMagZ(), 3);
 
         // 4. GPS
-        Serial.println(">>> 4. GPS (Định vị vệ tinh toàn cầu)");
+        cdh.println(">>> 4. GPS (Định vị vệ tinh toàn cầu)");
         int sats = myGPS.getSatellites();
         if (sats > 0) {
-            Serial.printf("    - Tọa độ (Lat, Lng) : %f, %f\n", myGPS.getLat(), myGPS.getLng());
-            Serial.printf("    - Cao độ (Altitude) : %.2f m\n", myGPS.getAltitude());
-            Serial.printf("    - Tốc độ (Speed)    : %.2f km/h\n", myGPS.getSpeed());
-            Serial.printf("    - Hướng (Course)    : %.2f độ\n", myGPS.getCourse());
-            Serial.printf("    - Số vệ tinh khóa   : %d\n", sats);
-            Serial.printf("    - Sai số HDOP       : %.2f\n", myGPS.getHDOP());
-            Serial.print ("    - Thời gian chuẩn   : "); Serial.println(myGPS.getTimeString());
+            cdh.printf("    - Tọa độ (Lat, Lng) : %f, %f\n", myGPS.getLat(), myGPS.getLng());
+            cdh.printf("    - Cao độ (Altitude) : %.2f m\n", myGPS.getAltitude());
+            cdh.printf("    - Tốc độ (Speed)    : %.2f km/h\n", myGPS.getSpeed());
+            cdh.printf("    - Hướng (Course)    : %.2f độ\n", myGPS.getCourse());
+            cdh.printf("    - Số vệ tinh khóa   : %d\n", sats);
+            cdh.printf("    - Sai số HDOP       : %.2f\n", myGPS.getHDOP());
+            cdh.print ("    - Thời gian chuẩn   : "); cdh.println(myGPS.getTimeString());
         } else {
-            Serial.println("    - Trạng thái        : Đang quét tìm vệ tinh... (Hãy đặt anten hướng ra ngoài trời)");
+            cdh.println("    - Trạng thái        : Đang quét tìm vệ tinh... (Hãy đặt anten hướng ra ngoài trời)");
         }
         
-        Serial.println("=================================================\n");
+        cdh.println("=================================================\n");
     }
 }
