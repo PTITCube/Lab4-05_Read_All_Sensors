@@ -5,7 +5,7 @@
  * Ví dụ này minh họa cách khởi tạo và lấy dữ liệu chi tiết từ toàn bộ hệ thống
  * cảm biến trên vệ tinh CubeSat:
  * 1. BMP280: Đo nhiệt độ và áp suất khí quyển (I2C).
- * 2. MPU6050/MPU6500: Gia tốc kế và con quay hồi chuyển 6 trục (I2C).
+ * 2. MPU6500: Gia tốc kế và con quay hồi chuyển 6 trục (I2C).
  * 3. QMC5883L/P: Cảm biến la bàn từ trường 3 trục (I2C).
  * 4. GPS (NEO-xM): Định vị tọa độ vệ tinh, độ cao, tốc độ và thời gian UTC (UART).
  */
@@ -23,7 +23,7 @@ void setup() {
 
     Serial.println("\n[EXAMPLE] Bắt đầu bài test Toàn bộ Cảm biến & Định vị GPS...");
     
-    // Khởi tạo các cảm biến I2C (BMP280, MPU6050, QMC5883)
+    // Khởi tạo các cảm biến I2C (BMP280, MPU6500, QMC5883)
     mySensor.init();
 
     // Khởi tạo module GPS qua UART2
@@ -50,8 +50,8 @@ void loop() {
         Serial.print("    - Nhiệt độ          : "); Serial.print(mySensor.getTemperature(), 2); Serial.println(" °C");
         Serial.print("    - Áp suất           : "); Serial.print(mySensor.getPressure(), 2); Serial.println(" hPa");
 
-        // 2. MPU6050/MPU6500
-        Serial.println(">>> 2. MPU6050/MPU6500 (Gia tốc & Con quay hồi chuyển)");
+        // 2. MPU6500
+        Serial.println(">>> 2. MPU6500 (Gia tốc & Con quay hồi chuyển)");
         Serial.print("    - Gia tốc (m/s^2)   : X="); Serial.print(mySensor.getAccX(), 3); 
         Serial.print("  Y="); Serial.print(mySensor.getAccY(), 3); 
         Serial.print("  Z="); Serial.println(mySensor.getAccZ(), 3);
