@@ -81,7 +81,5 @@ void loop() {
         } else {
             cdh.println("    - Trạng thái        : Đang quét tìm vệ tinh... (Hãy đặt anten hướng ra ngoài trời)");
         }
-        
-    
     }
 }
