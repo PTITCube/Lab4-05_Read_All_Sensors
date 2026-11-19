@@ -27,8 +27,9 @@ void loop() {
         // 1. Dữ liệu môi trường & quán tính
         cdh.printf("[ENV] T: %.1f C | P: %.1f hPa | Alt: %.1f m\n",
                    mySensor.getTemperature(), mySensor.getPressure(), mySensor.getAltitude());
-        cdh.printf("[IMU] Roll: %.1f° | Pitch: %.1f° | Heading: %.1f°\n",
-                   mySensor.getRoll(), mySensor.getPitch(), mySensor.getHeading());
+        cdh.printf("[IMU] Roll: %.1f° | Pitch: %.1f° | Head: %.1f° | Mag: (%.1f, %.1f, %.1f) uT\n",
+                   mySensor.getRoll(), mySensor.getPitch(), mySensor.getHeading(),
+                   mySensor.getMagX(), mySensor.getMagY(), mySensor.getMagZ());
 
         // 2. Dữ liệu định vị GPS
         int sats = myGPS.getSatellites();
