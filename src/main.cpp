@@ -24,21 +24,9 @@ void loop() {
     if (millis() - lastPrint >= 2000) {
         lastPrint = millis();
 
-        // 1. Dữ liệu môi trường & quán tính
-        cdh.printf("ENV: T: %.1f C | P: %.1f hPa | Alt: %.1f m\n",
-                   mySensor.getTemperature(), mySensor.getPressure(), mySensor.getAltitude());
-        cdh.printf("IMU: Roll: %.1f° | Pitch: %.1f° | Head: %.1f° | Mag: (%.1f, %.1f, %.1f) uT\n",
-                   mySensor.getRoll(), mySensor.getPitch(), mySensor.getHeading(),
-                   mySensor.getMagX(), mySensor.getMagY(), mySensor.getMagZ());
-
-        // 2. Dữ liệu định vị GPS
-        int sats = myGPS.getSatellites();
-        if (sats > 0) {
-            cdh.printf("GPS: %d sats | Lat: %.6f, Lng: %.6f | Alt: %.1fm | Spd: %.1fkm/h\n",
-                       sats, myGPS.getLat(), myGPS.getLng(),
-                       myGPS.getAltitude(), myGPS.getSpeed());
-        } else {
-            cdh.println("GPS: Đang quét tìm vệ tinh...");
-        }
+        cdh.printf("TELEM: T: %.1fC | P: %.1fhPa | Roll: %.1f | Pitch: %.1f | GPS: (%.4f, %.4f, %dsats)\n",
+                   mySensor.getTemperature(), mySensor.getPressure(),
+                   mySensor.getRoll(), mySensor.getPitch(),
+                   myGPS.getLat(), myGPS.getLng(), myGPS.getSatellites());
     }
 }
