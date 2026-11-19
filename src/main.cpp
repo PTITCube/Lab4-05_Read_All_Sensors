@@ -38,7 +38,7 @@ void loop() {
                        sats, myGPS.getLat(), myGPS.getLng(),
                        myGPS.getAltitude(), myGPS.getSpeed());
         } else {
-            cdh.println("GPS: Searching satellites...");
+            cdh.println("GPS: Đang quét tìm vệ tinh...");
         }
     }
 }
