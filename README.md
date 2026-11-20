@@ -1,4 +1,4 @@
-# Lab 4-05: Đọc Toàn Bộ Cảm Biến Vệ Tinh (Read All Sensors)
+# Lab 4-06: Đọc Toàn Bộ Cảm Biến Vệ Tinh (Read All Sensors)
 
 > **Phân hệ:** Sensor & Payload Tích Hợp  
 > **Thư viện yêu cầu:** `PTITCube Library v1.1.0`  
@@ -41,7 +41,7 @@ Sử dụng **PlatformIO CLI** hoặc giao diện **VSCode / PlatformIO IDE**:
 
 ```bash
 # 1. Di chuyển vào thư mục dự án
-cd Lab4-05_Read_All_Sensors
+cd Lab4-06_Read_All_Sensors
 
 # 2. Biên dịch mã nguồn
 pio run

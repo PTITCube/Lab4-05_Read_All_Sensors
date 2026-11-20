@@ -1,5 +1,5 @@
 /**
- * VÍ DỤ 4-5: ĐỌC TỔNG HỢP TẤT CẢ CẢM BIẾN & ĐỊNH VỊ GPS
+ * VÍ DỤ 4-06: ĐỌC TỔNG HỢP TẤT CẢ CẢM BIẾN & ĐỊNH VỊ GPS
  */
 #include <Arduino.h>
 #include <PTITCube.h>
