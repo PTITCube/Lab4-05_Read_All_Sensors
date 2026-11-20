@@ -5,12 +5,16 @@
 #include <PTITCube.h>
 
 PTIT_CDH cdh;
+PTIT_EPS eps;
 
 PTIT_Sensor mySensor;
 PTIT_GPS myGPS;
 
 void setup() {
     cdh.begin(115200);
+
+    // Kích hoạt hạ áp cấp nguồn toàn bộ cảm biến, GPS qua thư viện EPS
+    eps.setBuckState(true);
 
     mySensor.init();
     myGPS.init(12, 14); // Chân MUX
