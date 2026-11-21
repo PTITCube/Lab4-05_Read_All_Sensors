@@ -11,7 +11,7 @@ PTIT_Sensor mySensor;
 PTIT_GPS myGPS;
 
 void setup() {
-    cdh.begin(115200);
+    cdh.begin();
 
     // Kích hoạt hạ áp cấp nguồn toàn bộ cảm biến, GPS qua thư viện EPS
     eps.setBuckState(true);
