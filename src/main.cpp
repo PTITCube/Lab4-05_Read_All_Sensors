@@ -7,8 +7,8 @@
 PTIT_CDH cdh;
 PTIT_EPS eps;
 
-PTIT_Sensor mySensor;
-PTIT_GPS myGPS;
+PTIT_Sensor sensor;
+PTIT_GPS gps;
 
 void setup() {
     cdh.begin();
@@ -16,21 +16,21 @@ void setup() {
     // Kích hoạt hạ áp cấp nguồn toàn bộ cảm biến, GPS qua thư viện EPS
     eps.setBuckState(true);
 
-    mySensor.init();
-    myGPS.init(12, 14); // Chân MUX
+    sensor.init();
+    gps.init();
 }
 
 void loop() {
-    mySensor.update();
-    myGPS.update();
+    sensor.update();
+    gps.update();
 
     static unsigned long lastPrint = 0;
     if (millis() - lastPrint >= 2000) {
         lastPrint = millis();
 
         cdh.printf("TELEM: T: %.1fC | P: %.1fhPa | Roll: %.1f | Pitch: %.1f | GPS: (%.4f, %.4f, %dsats)\n",
-                   mySensor.getTemperature(), mySensor.getPressure(),
-                   mySensor.getRoll(), mySensor.getPitch(),
-                   myGPS.getLat(), myGPS.getLng(), myGPS.getSatellites());
+                   sensor.getTemperature(), sensor.getPressure(),
+                   sensor.getRoll(), sensor.getPitch(),
+                   gps.getLat(), gps.getLng(), gps.getSatellites());
     }
 }
